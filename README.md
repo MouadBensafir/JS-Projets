@@ -1,3 +1,3 @@
-# 1-JS-Projet-TODO
+# JS-Projet
 
-You will find in the repository the To do list manipulation project
+You will find in the repository all the project of this semester
