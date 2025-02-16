@@ -1,3 +1,3 @@
 # JS-Projets
 
-You will find in the repository all the project of this semester
+This repository contains all the projects for this semester in the Specialized Platform Development course.
