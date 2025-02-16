@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Trivia Quiz</title>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" width="110px">
+        <div id="timer">Test your Knowledge!</div>
+        <button id="start" onclick="displayQuestions()">Start Quizz</button>
+    </header>
+
+    <div>.</div> <!-----It was the only way to force a space between the body and header :,) -->
+
+    <div class="main-container">
+        <form class="customize-quizz">
+                <label for="">Number of Questions:</label>
+                <input type="text" id="amount" placeholder="Number between 1 and 50">
+            
+                <label>Select Category:</label>
+                <select id="category">
+                    <option value="" selected>Any Category</option>
+                    <option value="9">General Knowledge</option>
+                    <option value="10">Entertainment: Books</option>
+                    <option value="11">Entertainment: Film</option>
+                    <option value="12">Entertainment: Music</option>
+                    <option value="13">Entertainment: Musicals & Theatres</option>
+                    <option value="14">Entertainment: Television</option>
+                    <option value="15">Entertainment: Video Games</option>
+                    <option value="16">Entertainment: Board Games</option>
+                    <option value="17">Science & Nature</option>
+                    <option value="18">Science: Computers</option>
+                    <option value="19">Science: Mathematics</option>
+                    <option value="20">Mythology</option>
+                    <option value="21">Sports</option>
+                    <option value="22">Geography</option>
+                    <option value="23">History</option>
+                    <option value="24">Politics</option>
+                    <option value="25">Art</option>
+                    <option value="26">Celebrity</option>
+                    <option value="27">Animals</option>
+                    <option value="28">Vehicles</option>
+                    <option value="29">Entertainment: Comics</option>
+                    <option value="30">Science: Gadgets</option>
+                    <option value="31">Entertainment: Japanese Anime & Manga</option>
+                    <option value="32">Entertainment: Cartoon & Animation</option>
+                </select>
+           
+                <label for="">Select Difficulty:</label>
+                <select id="difficulty">
+                    <option value="" selected>Any Difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            
+                <label for="">Select Type:</label>
+                <select id="type">
+                    <option value="">Any Type</option>
+                    <option value="multiple">Multiple Choice</option>
+                    <option value="boolean">True / False</option>
+                </select>
+            
+            
+        </form>
+        <p>Think fast, answer faster! 🧠⏳ — You have just 10 seconds to 
+            lock in your answer before time runs out. Once the clock hits zero, 
+            there’s no turning back — the quiz moves on! Can you keep up and 
+            prove your trivia mastery? Let’s find out. Good luck! 🔥🎉</p>
+    </div>
+    
+    <div class="submission"></div>
+
+    <form class="questions-form"></form>
+
+    <script src="sandbox.js"></script>
+</body>
+</html>
