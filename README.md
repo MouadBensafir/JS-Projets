@@ -1,3 +1,3 @@
 # 1-JS-Projet-TODO
 
-You will find in ths repository the To do list manipulation project
+You will find in the repository the To do list manipulation project
