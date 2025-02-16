@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Trivia Quiz</title>
+</head>
+<body>
+    <header>
+        <img src="images/logo.png" width="110px">
+        <div id="timer">Test your Knowledge!</div>
+        <button id="start" onclick="displayQuestions()">Start Quizz</button>
+    </header>
+
+    <div>.</div> <!-----It was the only way to force a space between the body and header :,) -->
+
+    <div class="main-container">
+        <br><br>
+        <h1 style="color: white;">
+            Think fast, answer faster! 🧠⏳
+        </h1> 
+        <p style="color: white; font-size: 1.5em;"> 
+            You have just 10 seconds to 
+            lock in your answer before time runs out. Once the clock hits zero, 
+            there’s no turning back — the quiz moves on! Can you keep up and 
+            prove your trivia mastery? Let’s find out. 
+        </p>
+        <br><br>
+        <h1 style="color: white;">
+            Good luck! 🔥🎉
+        </h1>
+    </div>
+    
+    <div class="submission"></div>
+
+    <form class="questions-form"></form>
+
+    <script src="sandbox.js"></script>
+</body>
+</html>
