@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Manipulation de vue</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.js"></script>
+</head>
+<body>
+
+
+<div id="monapp">
+	<h1>Exercice 1 :</h1>
+	<button @click="titre = 'Cliqué!'">{{titre}}</button>
+	<h1>Exercice 2 :</h1>
+	<div>
+		<button @click="compteur++">++</button>
+		{{compteur}}
+		<button @click="compteur--">--</button>
+	</div>
+	<h1>Exercice 3 :</h1>
+	<p v-show="isActive">J'ai dit SANS ESPACES!!!!!</p> 
+	<label for="champ">Entrer une Chaîne de caractère SANS espaces O.O:</label>
+	<input name="champ" type="text" v-model="text" @input="isActive = this.text.includes(' ')">
+</div>
+
+
+
+<script>
+	const appli = {
+		data () {
+				return {
+					titre: "Cliquez moi!",
+					compteur: 0,
+					text: "",
+					isActive: false
+				}
+			}
+	};
+	
+Vue.createApp(appli).mount('#monapp');
+</script>
+
+</body>
+</html>

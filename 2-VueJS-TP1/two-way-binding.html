@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Manipulation de vue</title>
+<script src="https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.js"></script>
+</head>
+<body>
+
+<div id="monapp">
+	<label>Couleur de la police:</label>
+	<ul>
+		<li>Rouge <input v-model="couleur" type="radio" value="red"></li>
+		<li>Vert <input v-model="couleur" type="radio" value="green"></li>
+	</ul>
+	<label>Cacher le paragraphe</label>
+	<input v-model="isCacher" type="checkbox">
+	<p :style="{color: couleur}" v-show="!isCacher">Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+		Optio, a voluptas perferendis porro vitae dolore repellat 
+		repellendus adipisci, unde, laborum corrupti quisquam neque! 
+		Autem, recusandae ipsum voluptatem nostrum temporibus adipisci?</p>
+</div>
+
+
+<script>
+	const appli = {
+		data () {
+				return {
+					couleur: "black",
+					isCacher: false
+				}
+			}
+	};
+	
+Vue.createApp(appli).mount("#monapp");
+</script>
+
+</body>
+</html>
