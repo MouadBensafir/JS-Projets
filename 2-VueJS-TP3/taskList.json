@@ -1,0 +1,46 @@
+[
+    {
+      "id": 1,
+      "title": "Render le projet d'animation sur Blender",
+      "description": "Gérer les erreurs de lumières et de textures avant d'exporter",
+      "completed": false
+    },
+    {
+      "id": 2,
+      "title": "Répondre à l'ultime question",
+      "description": "Qui est donc le ninja vert?",
+      "completed": false
+    },
+    {
+      "id": 3,
+      "title": "Finaliser les TPs de SDP2",
+      "description": "Implémentez les intructions de tous les projets, une tâche qui semble pourtant impossible...",
+      "completed": true
+    },
+    {
+      "id": 4,
+      "title": "Partir au supermarché",
+      "description": "Acheter du lait, des oeufs, des pommes et du pain (pas de Cola, on boycotte ici)",
+      "completed": false
+    },
+    {
+      "id": 5,
+      "title": "Faire les courses",
+      "description": "Acheter de quoi survivre une semaine avant les midterms",
+      "completed": false
+    },
+    {
+      "id": 6,
+      "title": "Faire du sport",
+      "description": "Courir pendant 30 minutes sans excuses!",
+      "completed": true
+    },
+    {
+      "id": 7,
+      "title": "Réviser pour l'examen",
+      "description": "Relire le chapitre 5 du manuel, si tu te sens nostalgique",
+      "completed": false
+    }
+    
+  ]
+  

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ToDo List</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.js"></script>
+    <style>
+      body {
+        background-color: rgb(16, 100, 102);
+        font-family: 'Arial Narrow Bold', sans-serif;
+        letter-spacing: 1px;
+        padding: 1rem 3rem;
+        color: white;
+      }
+      .filtrage {
+        display: flex;
+      }
+      .tâche {
+        color: black;
+        border: 3px solid rgb(216, 176, 140);
+        border-radius: 10px;
+        letter-spacing: 0;
+        background-color: rgb(255, 203, 155);
+        margin: 1rem;
+        padding-left: 2rem;
+      }
+      .head-task {
+        font-weight: 2rem; 
+        font-weight: bold;
+      }
+      .acheve {
+        float: right;
+      }
+      .desc {
+        opacity: 0.9;
+        font-style: italic;
+      }
+      button {
+        background-color: white;
+        font-weight: bold;
+        padding: 5px;
+        width: 5rem;
+        border-radius: 5px;
+        margin: 0 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>Ma TO-DO Liste (˶˃⤙˂˶)</h1>
+      <!-------Paramètres-de-filtrage------------------------------------------------>
+      <div class="filtrage">
+        <fieldset>
+          <legend>Filrer les tâches par titre</legend>
+          <input type="text" v-model="filtreNom">
+        </fieldset>
+        <fieldset>
+          <legend>Filrer les tâches par type</legend>
+          <button value="terminé" @click="filtreEtat = ''">Tout</button>
+          <button value="terminé" @click="filtreEtat = 'à-finir'">A faire</button>
+          <button value="à-finir" @click="filtreEtat = 'terminé'">Terminée</button>
+        </fieldset>
+      </div>
+      
+
+      <!---------Affichage-du-nombre-de-tâches--------------------------------------->
+      <h2>Total des tâches : <b>{{ totalTasks }}</b></h2>
+
+      <!-------Affichage-de-la-todo-list--------------------------------------------->
+      <div v-for="task in todo_list">
+          <div v-show="((filtreEtat == '' || (filtreEtat == 'terminé' && task.completed) || (filtreEtat == 'à-finir' && !task.completed))
+              &&((task.title.toLowerCase().indexOf(filtreNom.toLowerCase())>=0 || filtreNom=='')))" class="tâche">
+            <p class="head-task">{{task.id}} : {{task.title}}</p>
+            <p class="desc">Description : {{task.description}}</p>
+            <!-------Input-pour-marquer-l'execution-de-la-tâche---------------------->
+            <p class="acheve">
+              <h3 v-show="task.completed" style="color: red">Tâche Terminée!</h3>
+              <input v-show="!task.completed" type="button" value="Finaliser" @click="marquerFini(task)">
+            </p>
+            
+          </div>
+      </div>
+    </div>
+
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            todo_list: [],
+            filtreNom: '',
+            filtreEtat: ''
+          };
+        },
+        mounted() {
+          fetch("taskList.json")
+            .then((response) => response.json())
+            .then((data) => {
+              this.todo_list = data;
+            })
+            .catch((error) =>
+              console.log("Erreur lors du chargement de la liste : ", error)
+            );
+        },
+        computed: {
+          totalTasks() {
+            return this.todo_list.length;
+          }
+        },
+        methods : {
+          marquerFini(task) {
+            task.completed = 1 
+          }
+        }
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>
