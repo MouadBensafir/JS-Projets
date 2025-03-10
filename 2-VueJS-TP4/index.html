@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Les Bonnes Pièces</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <header>
+      <img src="images/logo.png" alt="LOGO" />
+      <h1>Les Bonnes Pièces</h1>
+    </header>
+    <main id="app">
+      <!-- Menu de recherche -->
+      <section class="filtres">
+        <h3>Filtres</h3>
+        <div class="filtrage">
+          <label for="categorie">Par catégorie : </label>
+          <select name="categorie" id="ctg" v-model="filtreCategorie">
+            <option value="Tout" selected>Tout</option>
+            <option value="Électricité">Électricité</option>
+            <option value="Filtration">Filtration</option>
+            <option value="Moteur">Moteur</option>
+            <option value="Freinage">Freinage</option>
+            <option value="Refroidissement">Refroidissement</option>
+            <option value="Suspension">Suspension</option>
+            <option value="Sécurité">Sécurité</option>
+            <option value="Transmission">Transmission</option>
+            <option value="Carburant">Carburant</option>
+            <option value="Carrosserie">Carrosserie</option>
+            <option value="Échappement">Échappement</option>
+            <option value="Direction">Direction</option>
+          </select>
+          <label>Par disponibilité :</label>
+          <div class="dispo">
+            <input type="radio" id="dispo" value="true" v-model="filtreDispo" />
+            <label for="dispo">Disponible</label>
+            <input type="radio" id="indispo" value="false" v-model="filtreDispo"/>
+            <label for="indispo">Indisponible</label>
+          </div>
+          <label>Par Prix :</label>
+          <div class="dispo">
+            <input type="radio" id="croissant" value="croissant" v-model="filtrePrix" />
+            <label for="croissant">Croissant</label>
+            <input type="radio" id="decroissant" value="décroissant" v-model="filtrePrix"/>
+            <label for="decroissant">Décroissant</label>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fiches produits -->
+      <section class="fiches">
+        <div>
+          <label>Par nom : </label>
+          <input type="text" v-model="filtreNom"/>
+        </div>
+        <button @click="cart = 0" v-show="cart" class="show-cart">Show Cart</button>
+        <span>Taille du panier : ({{panierCount}})</span>
+        <div v-show="cart" v-for="piece in filteredPieces" :key="piece.id">
+          <div class="piece">
+            <img :src="piece.img" alt="Une Photo random" />
+            <div>
+              <p>ID : #{{ piece.id }} </p>
+              <p>{{ piece.nom }}</p>
+            </div>
+            <p>{{ piece.dispo == 'true' ? "Disponible" : "Indisponible" }}</p>
+            <div>
+              <p>{{ piece.prix }} €</p>
+              <button @click="ajouter_item(piece)" v-show="piece.dispo == 'true'">Ajouter au panier</button>
+            </div>
+          </div>
+        </div>
+        <div v-show="!cart">
+          <div v-for="piece in panier">
+            <div class="piece">
+              <img :src="piece.img" alt="Une Photo random" />
+              <div>
+                <p>ID : #{{ piece.id }} </p>
+                <p>{{ piece.nom }}</p>
+              </div>
+              <p>{{ piece.dispo == 'true' ? "Disponible" : "Indisponible" }}</p>
+              <div>
+                <p>{{ piece.prix }} €</p>
+              </div>
+            </div>
+          </div>
+          <div class="prix">Prix estimé : {{totalPrix}} €</div>
+        </div>
+      </section>
+    </main>
+    <script>
+      const app = Vue.createApp({
+        data() {
+          return {
+            pieces_auto: [],
+            panier: [],
+            cart: true,
+            filtreNom: "",
+            filtreCategorie: "Tout",
+            filtreDispo: "",
+            filtrePrix: "",
+          };
+        },
+        methods: {
+          ajouter_item(item) {
+            if (item.dispo === "false") {
+              alert(`"${item.nom}" n'est pas disponible.`);
+              return;
+            }
+
+            const existeDeja = this.panier.find((p) => p.id === item.id);
+            if (!existeDeja) {
+              this.panier.push(item);
+              alert(`"${item.nom}" a été ajouté au panier avec succès.`);
+            } else {
+              alert(`"${item.nom}" est déjà dans le panier.`);
+            }
+          },
+        },
+        mounted() {
+          fetch("pieces-autos.json")
+            .then((response) => response.json())
+            .then((data) => {
+              this.pieces_auto = data;
+            })
+            .catch((error) =>
+              console.error("Erreur lors du chargement de la liste :", error)
+            );
+        },
+        computed: {
+          panierCount() {
+            return this.panier.length;
+          },
+          totalPrix() {
+            return this.panier.reduce((total, piece) => total + piece.prix, 0);
+          },
+          filteredPieces() {
+            let filtered = this.pieces_auto;
+
+            if (this.filtreNom) {
+              filtered = filtered.filter((piece) =>
+                piece.nom.toLowerCase().includes(this.filtreNom.toLowerCase())
+              );
+            }
+            if (this.filtreCategorie !== "Tout") {
+              filtered = filtered.filter((piece) => piece.categorie === this.filtreCategorie);
+            }
+            if (this.filtreDispo !== "") {
+              filtered = filtered.filter((piece) => piece.dispo === this.filtreDispo);
+            }
+            if (this.filtrePrix === "croissant") {
+              filtered.sort((a, b) => a.prix - b.prix);
+            } else if (this.filtrePrix === "décroissant") {
+              filtered.sort((a, b) => b.prix - a.prix);
+            }
+
+            return filtered;
+          },
+        },
+      });
+
+      app.mount("#app");
+
+    </script>
+  </body>
+</html>
